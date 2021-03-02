@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  reactive-atdd-workshop:
+    container_name: reactive-atdd-workshop
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: reactive-atdd-workshop
+    restart: always
+    ports:
+      - "8080:8080"
+    tty: true
