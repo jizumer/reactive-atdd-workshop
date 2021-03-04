@@ -6,6 +6,7 @@ on:
     paths:
       - 'src/**'
       - 'build.gradle'
+      - README.md
     branches:
       - main
 
