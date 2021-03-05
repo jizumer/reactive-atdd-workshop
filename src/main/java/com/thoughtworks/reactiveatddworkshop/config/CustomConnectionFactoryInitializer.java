@@ -12,6 +12,8 @@ import org.springframework.r2dbc.connection.init.CompositeDatabasePopulator;
 import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 
+import java.util.stream.DoubleStream;
+
 @Configuration
 public class CustomConnectionFactoryInitializer {
     @Bean
@@ -26,9 +28,11 @@ public class CustomConnectionFactoryInitializer {
 
     @Bean
     public CommandLineRunner init(AssetsRepository assetsRepository) {
-        return args -> assetsRepository.save(new Asset(null, "BTC", 1f))
-                .thenMany(assetsRepository.findAll())
-                .subscribe(System.out::println);
+        return args ->
+                DoubleStream.of(0.1, 0.2, 0.05).
+                        forEach(amount ->
+                                assetsRepository
+                                        .save(new Asset(null, "BTC", amount)).subscribe());
     }
 
 }

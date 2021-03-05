@@ -12,9 +12,9 @@ public class Asset {
     @Id
     private String id;
     private String name;
-    private Float amount;
+    private Double amount;
 
-    public Asset(String id, String name, Float amount) {
+    public Asset(String id, String name, Double amount) {
         this.id = id;
         this.name = name;
         this.amount = amount;
@@ -36,11 +36,11 @@ public class Asset {
         this.name = name;
     }
 
-    public Float getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Float amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
