@@ -2,7 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.4.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id "jacoco"
+	id 'jacoco'
+	id 'org.sonarqube' version '3.1.1'
 }
 
 group = 'com.thoughtworks'
@@ -33,5 +34,13 @@ jacocoTestReport {
 	reports {
 		xml.enabled true
 		html.enabled false
+	}
+}
+
+sonarqube {
+	properties {
+		property 'sonar.host.url', 'https://sonarcloud.io'
+		property 'sonar.organization', 'thoughtworks-testing'
+		property 'sonar.projectKey', 'com.thoughtworks:reactive-atdd-workshop'
 	}
 }

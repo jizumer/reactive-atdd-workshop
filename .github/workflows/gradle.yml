@@ -27,6 +27,13 @@ jobs:
       run: make test
     - name: Generate Jacoco report
       run: gradle jacocoTestReport
+    - name: Sonar Quality Analysis
+      run: gradle sonarqube --info
+      env:
+        # Needed to get some information about the pull request, if any
+        GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+        # SonarCloud access token should be generated from https://sonarcloud.io/account/security/
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Upload to Codecov
       uses: codecov/codecov-action@v1.2.1
       with:
