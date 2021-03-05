@@ -1,59 +1,19 @@
 package com.thoughtworks.reactiveatddworkshop.domain;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Objects;
-
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table("assets")
 public class Asset {
     @Id
     private String id;
     private String name;
     private Double amount;
-
-    public Asset(String id, String name, Double amount) {
-        this.id = id;
-        this.name = name;
-        this.amount = amount;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Asset asset = (Asset) o;
-        return Objects.equals(id, asset.id) && Objects.equals(name, asset.name) && Objects.equals(amount, asset.amount);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, amount);
-    }
 }
