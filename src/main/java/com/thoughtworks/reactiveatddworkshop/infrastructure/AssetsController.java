@@ -44,7 +44,7 @@ public class AssetsController {
     }
 
     @DeleteMapping("/{assetId}")
-    public Mono<ResponseEntity<Void>> deleteUserById(@PathVariable String assetId) {
+    public Mono<ResponseEntity<Void>> deleteById(@PathVariable String assetId) {
         return assetsService.deleteAsset(assetId)
                 .map(r -> ResponseEntity.ok().<Void>build())
                 .defaultIfEmpty(ResponseEntity.notFound().build());
