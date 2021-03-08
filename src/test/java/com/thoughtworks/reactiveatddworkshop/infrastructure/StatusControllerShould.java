@@ -16,7 +16,7 @@ class StatusControllerShould {
     private WebTestClient webClient;
 
     @Test
-    @DisplayName("Status result status should be 200 (OK)")
+    @DisplayName("Result status should be 200 (OK)")
     void returnStatusOk() {
         webClient.get()
                 .uri("/status")

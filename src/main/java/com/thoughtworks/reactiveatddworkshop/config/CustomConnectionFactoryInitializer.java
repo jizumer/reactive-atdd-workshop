@@ -16,6 +16,9 @@ import java.util.stream.DoubleStream;
 
 @Configuration
 public class CustomConnectionFactoryInitializer {
+
+    public static final String BTC_ASSET_NAME = "BTC";
+
     @Bean
     public ConnectionFactoryInitializer initializer(@Qualifier("connectionFactory") ConnectionFactory connectionFactory) {
         ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
@@ -32,7 +35,7 @@ public class CustomConnectionFactoryInitializer {
                 DoubleStream.of(0.1, 0.2, 0.05).
                         forEach(amount ->
                                 assetsRepository
-                                        .save(new Asset(null, "BTC", amount)).subscribe());
+                                        .save(new Asset(null, BTC_ASSET_NAME, amount)).subscribe());
     }
 
 }
