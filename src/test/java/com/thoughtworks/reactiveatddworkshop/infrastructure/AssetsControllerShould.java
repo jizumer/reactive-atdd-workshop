@@ -64,6 +64,7 @@ public class AssetsControllerShould {
                 .getResponseBody();
 
         assertEquals(retrievedAsset, insertedAsset);
+        deleteById(insertedAsset.getId());
     }
 
     @Test
@@ -97,6 +98,7 @@ public class AssetsControllerShould {
                 .get(0);
 
         assertEquals(retrievedAsset.getName(), randomName);
+        deleteById(insertedAsset.getId());
     }
 
     @Test
@@ -120,16 +122,20 @@ public class AssetsControllerShould {
 
         checkAssetsNumber(4);
 
-        webTestClient
-                .delete()
-                .uri("/assets/" + insertedAsset.getId())
-                .exchange()
-                .expectStatus()
-                .isOk();
+        deleteById(insertedAsset.getId());
 
         checkAssetsNumber(3);
 
 
+    }
+
+    private void deleteById(String assetId) {
+        webTestClient
+                .delete()
+                .uri("/assets/" + assetId)
+                .exchange()
+                .expectStatus()
+                .isOk();
     }
 
     private void checkAssetsNumber(int expectedAssetsNumber) {
