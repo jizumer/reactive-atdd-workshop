@@ -16,6 +16,11 @@ repositories {
 	maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 }
 
+ext {
+	cucumberVersion = '1.2.6'
+	extentReportsVersion = '3.1.1'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
@@ -26,10 +31,16 @@ dependencies {
 	runtimeOnly 'io.r2dbc:r2dbc-h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation("com.aventstack:extentreports:$extentReportsVersion")
+	testImplementation("com.vimalselvam:cucumber-extentsreport:$extentReportsVersion")
+	testImplementation("info.cukes:cucumber-java:$cucumberVersion")
+	testImplementation("info.cukes:cucumber-junit:$cucumberVersion")
+	testImplementation("info.cukes:cucumber-spring:$cucumberVersion")
 }
 
 test {
 	useJUnitPlatform()
+	// systemProperties = System.properties
 }
 
 jacocoTestReport {
