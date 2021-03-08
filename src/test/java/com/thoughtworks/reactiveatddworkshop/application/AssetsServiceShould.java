@@ -8,10 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.internal.matchers.Any;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -56,7 +59,7 @@ class AssetsServiceShould {
     }
 
     @Test
-    void updateAsset() {
+    void update_asset() {
         String modifiedAssetName = "modifiedAssetName";
         Double modifiedAssetAmount = 3.0;
         Asset assetMock = mock(Asset.class);
@@ -81,11 +84,21 @@ class AssetsServiceShould {
 
     @Disabled
     @Test
-    void deleteAsset() {
+    void delete_assets() {
+        when(assetsRepository.findById(eq(id))).thenReturn(Mono.just(mock));
+
+        when(assetsRepository.delete(any()).thenReturn(Mono.empty()));
+        assertEquals(mock, sut.deleteAsset(id).block());
+        verify(assetsRepository, times(1)).delete(eq(mock));
+        verify(assetsRepository, times(1)).findById(eq(id));
     }
 
-    @Disabled
     @Test
-    void findByAssetName() {
+    void find_asset_by_name() {
+        when(assetsRepository.findByName(anyString())).thenReturn(Flux.just(mock));
+        String anyName = "anyName";
+        assertEquals(1, sut.findByAssetName(anyName).count().block());
+
+        verify(assetsRepository, times(1)).findByName(anyName);
     }
 }
