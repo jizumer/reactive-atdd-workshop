@@ -82,12 +82,10 @@ class AssetsServiceShould {
 
     }
 
-    @Disabled
     @Test
     void delete_assets() {
         when(assetsRepository.findById(eq(id))).thenReturn(Mono.just(mock));
-
-        when(assetsRepository.delete(any()).thenReturn(Mono.empty()));
+        when(assetsRepository.delete(mock)).thenReturn(Mono.empty());
         assertEquals(mock, sut.deleteAsset(id).block());
         verify(assetsRepository, times(1)).delete(eq(mock));
         verify(assetsRepository, times(1)).findById(eq(id));
