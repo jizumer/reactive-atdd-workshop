@@ -16,24 +16,20 @@ import reactor.core.publisher.Mono;
 import java.util.Collections;
 
 @ContextConfiguration(classes = ReactiveAtddWorkshopApplication.class)
-// @WebAppConfiguration
 public class AssetsIntegrationTest {
 
-//  @Autowired
-//  private WebClient webClient;
+    Flux<Asset> getAssets() {
+        WebClient webClient = WebClient.builder()
+                .baseUrl("http://localhost:8080")
+                .defaultCookie("cookieKey", "cookieValue")
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .defaultUriVariables(Collections.singletonMap("url", "http://localhost:8080"))
+                .build();
 
-  Flux<Asset> getAssets() throws Exception {
-    WebClient webClient = WebClient.builder()
-        .baseUrl("http://localhost:8080")
-        .defaultCookie("cookieKey", "cookieValue")
-        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-        .defaultUriVariables(Collections.singletonMap("url", "http://localhost:8080"))
-        .build();
-
-    return webClient.get()
-      .uri("/assets/")
-      .retrieve()
-    .bodyToFlux(Asset.class);
-  }
+        return webClient.get()
+                .uri("/assets/")
+                .retrieve()
+                .bodyToFlux(Asset.class);
+    }
 
 }
