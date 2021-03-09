@@ -31,6 +31,12 @@ public class AssetsController {
         return assetsService.getAllAssets();
     }
 
+    @GetMapping("/value")
+    public Mono<Double> getMyAssetsValue() {
+        return Mono.just(5.0);
+    }
+
+
     @GetMapping("/{assetId}")
     public Mono<ResponseEntity<Asset>> getAssetById(@PathVariable String assetId) {
         Mono<Asset> user = assetsService.findById(assetId);

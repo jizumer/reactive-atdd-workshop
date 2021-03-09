@@ -21,9 +21,6 @@ public class AssetsIntegrationTest {
     Flux<Asset> getAssets() {
         WebClient webClient = WebClient.builder()
                 .baseUrl("http://localhost:8080")
-                .defaultCookie("cookieKey", "cookieValue")
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .defaultUriVariables(Collections.singletonMap("url", "http://localhost:8080"))
                 .build();
 
         return webClient.get()

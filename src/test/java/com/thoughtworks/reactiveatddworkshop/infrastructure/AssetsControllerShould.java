@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
 
 import static com.thoughtworks.reactiveatddworkshop.config.CustomConnectionFactoryInitializer.BTC_ASSET_NAME;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @AutoConfigureWebTestClient
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -126,6 +126,38 @@ public class AssetsControllerShould {
 
         checkAssetsNumber(3);
 
+
+    }
+
+    @Test
+    @DisplayName("Retrieve the value in USD of all my assets")
+    void retrieveAllMyAssetsValue() {
+
+        Asset insertedAsset = webTestClient
+                .post()
+                .uri("/assets")
+                .body(BodyInserters.fromProducer(Mono.just(new Asset(null,
+                        BTC_ASSET_NAME,
+                        1.0)), Asset.class))
+                .exchange()
+                .expectStatus()
+                .isCreated()
+                .expectBody(Asset.class)
+                .returnResult()
+                .getResponseBody();
+
+        Double retrievedValue = webTestClient
+                .get()
+                .uri("/assets/value/")
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(Double.class)
+                .returnResult()
+                .getResponseBody();
+
+        assertNotNull(retrievedValue);
+        deleteById(insertedAsset.getId());
 
     }
 
