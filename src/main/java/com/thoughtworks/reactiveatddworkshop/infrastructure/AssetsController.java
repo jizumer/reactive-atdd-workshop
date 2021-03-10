@@ -33,7 +33,7 @@ public class AssetsController {
 
     @GetMapping("/value")
     public Mono<Double> getMyAssetsValue() {
-        return Mono.just(5.0);
+        return assetsService.getAssetsValue();
     }
 
 

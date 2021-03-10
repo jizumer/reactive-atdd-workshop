@@ -1,7 +1,7 @@
 package com.thoughtworks.reactiveatddworkshop.application;
 
 import com.thoughtworks.reactiveatddworkshop.domain.Status;
-import com.thoughtworks.reactiveatddworkshop.domain.StatusRepository;
+import com.thoughtworks.reactiveatddworkshop.infrastructure.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

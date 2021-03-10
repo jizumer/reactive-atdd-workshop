@@ -1,6 +1,7 @@
 package com.thoughtworks.reactiveatddworkshop.application;
 
 import com.thoughtworks.reactiveatddworkshop.domain.Asset;
+import com.thoughtworks.reactiveatddworkshop.domain.Price;
 import com.thoughtworks.reactiveatddworkshop.infrastructure.AssetsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static com.thoughtworks.reactiveatddworkshop.config.CustomConnectionFactoryInitializer.BTC_ASSET_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -23,6 +25,9 @@ class AssetsServiceShould {
 
     @Mock
     private AssetsRepository assetsRepository;
+
+    @Mock
+    private BitcoinSpotPriceService bitcoinSpotPriceService;
 
     @InjectMocks
     private AssetsService sut;
@@ -94,5 +99,25 @@ class AssetsServiceShould {
         assertEquals(1, sut.findByAssetName(anyName).count().block());
 
         verify(assetsRepository, times(1)).findByName(anyName);
+    }
+
+    @Test
+    void calculate_assets_value() {
+
+        Double btcPrice = 56049.85;
+        Integer numberOfBitcoinsInMyWallet = 3;
+
+        Asset oneBitcoin = new Asset(null, BTC_ASSET_NAME, 1.0);
+        Flux<Asset> assets = Flux.just(oneBitcoin, oneBitcoin, oneBitcoin);
+
+        Price price = new Price(BTC_ASSET_NAME,
+                "USD",
+                btcPrice);
+
+        when(bitcoinSpotPriceService.getBitcoinSpotPrice()).thenReturn(Mono.just(price));
+        when(assetsRepository.findAll()).thenReturn(assets);
+
+        assertEquals(btcPrice * numberOfBitcoinsInMyWallet, sut.getAssetsValue().block());
+
     }
 }

@@ -133,7 +133,7 @@ public class AssetsControllerShould {
     @DisplayName("Retrieve the value in USD of all my assets")
     void retrieveAllMyAssetsValue() {
 
-        Asset insertedAsset = webTestClient
+        Asset firstAsset = webTestClient
                 .post()
                 .uri("/assets")
                 .body(BodyInserters.fromProducer(Mono.just(new Asset(null,
@@ -146,7 +146,7 @@ public class AssetsControllerShould {
                 .returnResult()
                 .getResponseBody();
 
-        Double retrievedValue = webTestClient
+        Double firstValue = webTestClient
                 .get()
                 .uri("/assets/value/")
                 .exchange()
@@ -156,8 +156,33 @@ public class AssetsControllerShould {
                 .returnResult()
                 .getResponseBody();
 
-        assertNotNull(retrievedValue);
-        deleteById(insertedAsset.getId());
+        assertNotNull(firstValue);
+        Asset secondAsset = webTestClient
+                .post()
+                .uri("/assets")
+                .body(BodyInserters.fromProducer(Mono.just(new Asset(null,
+                        BTC_ASSET_NAME,
+                        1.0)), Asset.class))
+                .exchange()
+                .expectStatus()
+                .isCreated()
+                .expectBody(Asset.class)
+                .returnResult()
+                .getResponseBody();
+
+        Double secondValue = webTestClient
+                .get()
+                .uri("/assets/value/")
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(Double.class)
+                .returnResult()
+                .getResponseBody();
+
+        assertTrue(secondValue > firstValue);
+
+        deleteById(firstAsset.getId());
 
     }
 

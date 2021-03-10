@@ -1,7 +1,7 @@
 package com.thoughtworks.reactiveatddworkshop.application;
 
 import com.thoughtworks.reactiveatddworkshop.domain.Status;
-import com.thoughtworks.reactiveatddworkshop.domain.StatusRepository;
+import com.thoughtworks.reactiveatddworkshop.infrastructure.StatusRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

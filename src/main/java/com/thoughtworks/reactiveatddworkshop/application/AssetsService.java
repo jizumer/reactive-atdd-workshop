@@ -10,10 +10,12 @@ import reactor.core.publisher.Mono;
 @Service
 public class AssetsService {
     private final AssetsRepository assetsRepository;
+    private final BitcoinSpotPriceService bitcoinSpotPriceService;
 
     @Autowired
-    public AssetsService(AssetsRepository assetsRepository) {
+    public AssetsService(AssetsRepository assetsRepository, BitcoinSpotPriceService bitcoinSpotPriceService) {
         this.assetsRepository = assetsRepository;
+        this.bitcoinSpotPriceService = bitcoinSpotPriceService;
     }
 
     public Mono<Asset> createAsset(Asset asset) {
@@ -45,5 +47,18 @@ public class AssetsService {
 
     public Flux<Asset> findByAssetName(String assetName) {
         return assetsRepository.findByName(assetName);
+    }
+
+    public Mono<Double> getAssetsValue() {
+
+        return assetsRepository
+                .findAll()
+                .flatMap(asset ->
+                        bitcoinSpotPriceService
+                                .getBitcoinSpotPrice()
+                                .map(price ->
+                                        price.getAmount() * asset.getAmount()))
+                .reduce(Double::sum);
+
     }
 }
