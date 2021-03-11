@@ -44,12 +44,17 @@ Retrieve the email of the service account created
 ```
 $ gcloud iam service-accounts list
 ```
-Assign the permissions for the deployment to happen:
+Assign these permissions for the deployment to happen:
+
+* Kubernetes Engine Admin
+* Kubernetes Engine Developer
+* Storage Admin
+
 ```
 $ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member=serviceAccount:$SA_EMAIL \
   --role=roles/container.admin \
-  --role=roles/storage.admin --role=roles/container.clusterAdmin --role=roles/container.developer
+  --role=roles/storage.admin
 ```
 Download the JSON keyfile for the service account
 ```
