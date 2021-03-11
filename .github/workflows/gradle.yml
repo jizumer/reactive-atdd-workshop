@@ -26,9 +26,9 @@ jobs:
     - name: Build with Gradle, leveraging on Makefile
       run: make test
     - name: Generate Jacoco report
-      run: gradle jacocoTestReport
+      run: make jacoco
     - name: Sonar Quality Analysis
-      run: gradle sonarqube --info
+      run: make sonar
       env:
         # Needed to get some information about the pull request, if any
         GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}

@@ -6,11 +6,20 @@ build:
 test:
 	@./gradlew clean test
 
+jacoco:
+	@./gradlew jacocoTestReport
+
+sonar:
+	@./gradlew sonarqube --info
+
 run:
 	@./gradlew bootRun
 
 clean:
 	@./gradlew clean
+
+bootJar:
+	@./gradlew clean bootJar
 
 container-start:
 	@./gradlew clean bootJar
