@@ -21,6 +21,17 @@ ext {
 	extentReportsVersion = '3.1.1'
 }
 
+sourceSets {
+	integrationTest {
+		java {
+			compileClasspath += main.output + test.output
+			runtimeClasspath += main.output + test.output
+			srcDir file('src/test/java/com/thoughtworks/reactiveatddworkshop/acceptance')
+		}
+		resources.srcDir file('src/test/resources')
+	}
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
@@ -36,11 +47,30 @@ dependencies {
 	testImplementation("info.cukes:cucumber-java:$cucumberVersion")
 	testImplementation("info.cukes:cucumber-junit:$cucumberVersion")
 	testImplementation("info.cukes:cucumber-spring:$cucumberVersion")
+	integrationTestCompile(
+			'info.cukes:cucumber-core:' + cucumberVersion,
+			'info.cukes:cucumber-java:' + cucumberVersion,
+			'info.cukes:cucumber-junit:' + cucumberVersion,
+			'info.cukes:cucumber-spring:' + cucumberVersion,
+			'com.aventstack:extentreports:' + extentReportsVersion,
+			'com.vimalselvam:cucumber-extentsreport:' + extentReportsVersion,
+			'io.projectreactor:reactor-test',
+			'org.springframework.boot:spring-boot-starter-webflux',
+			'org.springframework.boot:spring-boot-starter-test'
+	)
 }
+
+task integrationTest(type: Test) {
+	systemProperties = System.properties
+	testClassesDirs = sourceSets.integrationTest.output.classesDirs
+	outputs.upToDateWhen { false }
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
 
 test {
 	useJUnitPlatform()
-	// systemProperties = System.properties
 }
 
 jacocoTestReport {
