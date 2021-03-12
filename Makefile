@@ -32,6 +32,7 @@ container-stop:
 container-test:
 	@./gradlew clean bootJar
 	@docker-compose -f docker-compose.yml up -d --remove-orphans --build
+	@./healthcheck.sh
 	@./gradlew clean integrationTest
 	@docker-compose down
 	@docker rmi --force reactive-atdd-workshop

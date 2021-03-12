@@ -40,6 +40,4 @@ jobs:
         file: ./build/reports/jacoco/test/jacocoTestReport.xml
         flags: unittests
     - name: Container tests
-      run: |
-        make container-start
-        ./healthcheck.sh
+      run: make container-test
