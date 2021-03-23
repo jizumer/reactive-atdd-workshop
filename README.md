@@ -237,14 +237,14 @@ docker run --name reactive -d thoughtworks/reactive-atdd-workshop
 
 ## Material
 
-- [Spring WebFlux](https://www.baeldung.com/spring-webflux)
 - [ATDD from the trenches](https://www.infoq.com/articles/atdd-from-the-trenches/)
 - [Driving Development with Tests: ATDD and TDD](http://testobsessed.com/wp-content/uploads/2011/04/atddexample.pdf)
-- [Reactive Systems in Java](https://www.baeldung.com/java-reactive-systems)
 - [What is Cucumber?](https://cucumber.io/docs/guides/overview)
 - [Cucumber 10 Minute Tutorial](https://cucumber.io/docs/guides/10-minute-tutorial/)
 - [Cucumber Gherkin Reference](https://cucumber.io/docs/gherkin/reference/)
 - [Acceptance TDD with Cucumber](https://www.ctl.io/developers/blog/post/acceptance-tdd-cucumber)
+- [Reactive Systems in Java](https://www.baeldung.com/java-reactive-systems)
+- [Spring WebFlux](https://www.baeldung.com/spring-webflux)
 - [Spring Cucumber](https://josdem.io/techtalk/spring/spring_webflux_cucumber_es/)
 - [How to Configure Integration Testing with Gradle](https://www.petrikainulainen.net/programming/gradle/getting-started-with-gradle-integration-testing/)
 - [Deploying to Google Kubernetes Engine](https://docs.github.com/en/actions/guides/deploying-to-google-kubernetes-engine)
