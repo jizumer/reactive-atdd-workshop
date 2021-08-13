@@ -1,5 +1,3 @@
-package com.thoughtworks.reactiveatddworkshop.acceptance;
-
 import com.thoughtworks.reactiveatddworkshop.ReactiveAtddWorkshopApplication;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;

@@ -1,28 +1,28 @@
 all: build
 
 build:
-	@./gradlew clean build
+	@./backend/gradlew -p ./backend clean build
 
 test:
-	@./gradlew clean test
+	@./backend/gradlew -p ./backend clean test
 
 jacoco:
-	@./gradlew jacocoTestReport
+	@./backend/gradlew -p ./backend jacocoTestReport
 
 sonar:
-	@./gradlew sonarqube --info
+	@./backend/gradlew -p ./backend sonarqube --info
 
 run:
-	@./gradlew bootRun
+	@./backend/gradlew -p ./backend bootRun
 
 clean:
-	@./gradlew clean
+	@./backend/gradlew -p ./backend clean
 
 bootJar:
-	@./gradlew clean bootJar
+	@./backend/gradlew -p ./backend clean bootJar
 
 container-start:
-	@./gradlew clean bootJar
+	@./backend/gradlew -p ./backend clean bootJar
 	@docker-compose -f docker-compose.yml up -d --remove-orphans --build
 
 container-stop:
@@ -30,9 +30,9 @@ container-stop:
 	@docker rmi --force reactive-atdd-workshop
 
 container-test:
-	@./gradlew clean bootJar
+	@./backend/gradlew -p ./backend clean bootJar
 	@docker-compose -f docker-compose.yml up -d --remove-orphans --build
 	@./healthcheck.sh
-	@./gradlew clean integrationTest
+	@./backend/gradlew -p ./backend clean integrationTest
 	@docker-compose down
 	@docker rmi --force reactive-atdd-workshop
