@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'src/**'
-      - 'build.gradle'
+      - 'src/backend/**'
+      - 'backend/build.gradle'
       - README.md
   pull_request:
     branches: [ main ]
@@ -22,7 +22,7 @@ jobs:
       with:
         java-version: 1.11
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: chmod +x ./backend/gradlew
     - name: Build with Gradle, leveraging on Makefile
       run: make test
     - name: Generate Jacoco report
