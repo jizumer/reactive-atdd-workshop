@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'src/backend/**'
+      - 'backend/src/**'
       - 'backend/build.gradle'
       - README.md
   pull_request:
