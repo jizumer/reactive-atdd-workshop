@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eux
 
-declare -r HOST="http://localhost:8080/status"
+declare -r HOST="http://localhost:8081/status"
 
 wait-for-url() {
     echo "Testing $1"
