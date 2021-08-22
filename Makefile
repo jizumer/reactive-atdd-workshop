@@ -13,8 +13,11 @@ jacoco:
 sonar:
 	@./backend/gradlew -p ./backend sonarqube --info
 
-run:
+run-backend:
 	@./backend/gradlew -p ./backend bootRun
+
+run-frontend:
+	@npm start --prefix ./frontend
 
 clean:
 	@./backend/gradlew -p ./backend clean
