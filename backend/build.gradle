@@ -26,9 +26,9 @@ sourceSets {
 		java {
 			compileClasspath += main.output + test.output
 			runtimeClasspath += main.output + test.output
-			srcDir file('src/test/java/com/thoughtworks/reactiveatddworkshop/acceptance')
+			srcDir file('backend/src/test/java/com/thoughtworks/reactiveatddworkshop/acceptance')
 		}
-		resources.srcDir file('src/test/resources')
+		resources.srcDir file('backend/src/test/resources')
 	}
 }
 
