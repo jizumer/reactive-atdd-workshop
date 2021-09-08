@@ -1,11 +1,18 @@
-import react from "react";
+import { useState } from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import logo from "./logo.svg";
 import "./App.css";
 
 const queryClient = new QueryClient();
+import BTCPriceComponent from "./components/BTCPriceComponent";
 
 function App() {
+  const [showClassComponent,setShowClassComponent] = useState(true)
+
+  const toggleClassComponent = () => {
+    setShowClassComponent(!showClassComponent)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -15,6 +22,12 @@ function App() {
           <Status />
         </QueryClientProvider>
       </header>
+      <h1>Class component</h1>
+
+      {showClassComponent && <BTCPriceComponent textColor="red" />}
+
+      <button onClick={toggleClassComponent}>Toggle class component</button>
+
     </div>
   );
 }
