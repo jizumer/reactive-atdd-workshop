@@ -16,18 +16,18 @@ class BTCPriceComponent extends React.Component {
   }
 
   async componentDidMount() {
-    console.log('Component just rendered')
+    console.log('Class component just rendered')
     await this.fetchBTCPrice()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('Component just updated')
+    console.log('Class component just updated')
     console.log('Previous component state and props', prevProps, prevState)
     console.log('Current component state and props', this.props, this.state)
   }
 
   componentWillUnmount() {
-    console.log('Component is about to be unmounted')
+    console.log('Class component is about to be unmounted')
   }
 
   async fetchBTCPrice() {
